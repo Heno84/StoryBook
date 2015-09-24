@@ -1,0 +1,25 @@
+﻿@model DataModels.StoryModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@Html.ValidationSummary()
+
+@using (Html.BeginForm("Create", "Home", FormMethod.Post))
+{
+    @Html.LabelFor(m => m.Title)
+    @Html.TextBoxFor(m => m.Title)
+    <br />
+    <br />
+    @Html.LabelFor(m => m.Description)
+    @Html.TextBoxFor(m => m.Description)
+    <br />
+    <br />
+    @Html.LabelFor(m => m.Content)
+    @Html.TextAreaFor(m => m.Content)
+    <hr />
+    <input type="submit" value="Submit" />
+}

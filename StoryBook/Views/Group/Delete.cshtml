@@ -1,0 +1,21 @@
+﻿@using DataModels
+@model GroupModel
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+Do you really want to delete the following group?
+<br />
+ID: @Model.ID
+<br />
+Name: @Model.Name
+<hr />
+
+@using (Html.BeginForm("Delete", "Group", FormMethod.Post, new { id = "deleteForm" }))
+{
+    @Html.HiddenFor(m => m.ID)
+    <input type="submit" value="Yes" />
+}
+| @Html.ActionLink("Cancel", "Groups")

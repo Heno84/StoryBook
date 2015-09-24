@@ -1,0 +1,15 @@
+﻿@using DataModels
+@model  IEnumerable<StoryModel>
+@{
+    ViewBag.Title = "My Stories";
+}
+
+<h2>My Stories</h2>
+@Html.ActionLink("Create", "Create")
+<hr />
+<div id="stories">
+    @foreach (StoryModel story in Model)
+    {
+        <div id="sorty-@story.ID">@story.ID - @Html.ActionLink(story.Title, "Details", new { @id = story.ID }, new { @title="Details"}) - @Html.ActionLink("Delete", "Delete", new { @id = story.ID }, new { @title = "Delete" })</div>
+    }
+</div>

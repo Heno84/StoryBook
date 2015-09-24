@@ -1,0 +1,40 @@
+﻿@using DataModels
+@model  IEnumerable<GroupModel>
+@{
+    ViewBag.Title = "Groups";
+}
+
+<h2>Groups</h2>
+@Html.ActionLink("Create", "Create")
+<hr />
+@using (Html.BeginForm("Join", "Group", FormMethod.Post, new { @id = "joinform" }))
+{
+    <div id="stories">
+        @foreach (GroupModel group in Model)
+        {
+            <div id="group-@group.ID">
+                @group.ID - @group.Name (@group.MembersCount members, @group.StoriesCount stories) - @group.ByLine -
+                @if (!group.AmIMemberOf)
+                {
+                    <span><a href="#" data-id="@group.ID" class="joinlink">Join</a> - </span>
+                }
+                @if (group.AmIOwnerOf)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { @id = group.ID }, new { @title = "Delete" })
+                }
+            </div>
+        }
+    </div>
+    <input type="hidden" id="groupid" name="id" />
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".joinlink").click(function (event) {
+            event.preventDefault();
+
+            $("#groupid").val($(this).attr("data-id"));
+            $("#joinform").submit();
+        });
+    });
+</script>

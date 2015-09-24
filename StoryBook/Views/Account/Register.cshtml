@@ -1,0 +1,40 @@
+﻿@model StoryBook.Models.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>Create a new account.</h2>
+</hgroup>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+
+    <div class="container">
+        <div class="col-lg-2">
+            @Html.LabelFor(m => m.UserName)
+            @Html.TextBoxFor(m => m.UserName)
+
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)
+
+            @Html.LabelFor(m => m.ConfirmPassword)
+            @Html.PasswordFor(m => m.ConfirmPassword)
+
+            <div style="margin:10px">
+                <input type="submit" value="Register" />
+            </div>
+        </div>
+    </div>
+
+    
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

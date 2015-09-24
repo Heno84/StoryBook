@@ -1,0 +1,76 @@
+﻿@using DataModels
+@model StoryModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container">
+    <h2>Details</h2>
+    Title: @Model.Title<br />
+    Description: @Model.Description<br />
+    Content: @Model.Content<br />
+</div>
+
+<hr />
+
+@using (Html.BeginForm("ExitGroup", "Home", FormMethod.Post, new { @id = "exitgroupform", @class = "col-md-6" }))
+{
+    <div id="ingroups">
+        <h3>In Groups</h3>
+        @foreach (GroupModel group in Model.InGroups)
+        {
+
+            @group.Name
+            <span><a href="#" data-exit="@group.ID" data-storyexit="@Model.ID" class="exitlink">Exit</a></span>
+            <br />
+        }
+    </div>
+    <input type="hidden" id="exitgroupid" name="groupid" />
+    <input type="hidden" id="exitstoryid" name="storyid" />
+
+
+}
+
+@using (Html.BeginForm("JoinToGroup", "Home", FormMethod.Post, new { @id = "joingroupform", @class = "col-md-6" }))
+{
+    <div id="notingroups">
+        <h3> Not In Groups</h3>
+        @foreach (GroupModel group in Model.NotInGroups)
+        {
+            @group.Name
+            <span><a href="#" data-join="@group.ID" data-stroryjoin="@Model.ID" class="joinlink">Join</a></span>
+
+            <br />
+        }
+    </div>
+    <input type="hidden" id="joingroupid" name="groupid" />
+    <input type="hidden" id="joinstoryid" name="storyid" />
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".joinlink").click(function (event) {
+            event.preventDefault();
+            $("#joingroupid").val($(this).attr("data-join"));
+            $("#joinstoryid").val($(this).attr("data-stroryjoin"))
+            $("#joingroupform").submit();
+        });
+
+        $(".exitlink").click(function (event) {
+            $("#exitgroupid").val($(this).attr("data-exit"));
+            $("#exitstoryid").val($(this).attr("data-storyexit"));
+            $("#exitgroupform").submit();
+        });
+    });
+
+    //$(document).ready(function () {
+    //    $(".exitlink").click(function (event) {
+    //        event.preventDefault();
+
+    //        $("#joingroupid").val($(this).attr("data-join"));
+    //       /// $("#joinstoryid").val($(this).attr("data-strory"));
+    //        $("#joingroupform").submit();
+    //    });
+    //});
+</script>
+
